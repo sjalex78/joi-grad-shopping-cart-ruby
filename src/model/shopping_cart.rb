@@ -1,8 +1,6 @@
-class ShoppingCart
+require './src/model/order'
 
-  def set_order_service order_service
-    @order_service = order_service
-  end
+class ShoppingCart
 
   def initialize customer, products
     @customer = customer
@@ -47,8 +45,12 @@ class ShoppingCart
       total_price += product.price - discount;
     end
 
-    @order_service.show_confirmation(@customer, @products, total_price, loyalty_points_earned)
+    return Order.new total_price, loyalty_points_earned
   end
 
+  def to_s
+    "Customer: #{@customer.name}\n" +
+    "Bought: \n#{@products.map { |product| "- #{product.name}, #{product.price}" }.join("\n")}"
+   end
 
 end
