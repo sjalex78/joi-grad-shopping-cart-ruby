@@ -6,27 +6,30 @@ It's focused on identifying code smells, refactoring and testing legacy codebase
 conversations.
 
 ## Problem Statement
+
 We have an existing shopping cart application, with a small set of eCommerce/shopping cart rules. Rules include calculation of total price, discount and loyalty points calculation. Most of the business logic is implemented in single method ShoppingCart.checkout.
 
-## Technology used 
-* Ruby 2.0+
-* Bundler
-* Rake
-* RSpec - unit testing framework
+## Technology used
+
+- Ruby 2.0+
+- Bundler
+- Rake
+- RSpec - unit testing framework
 
 ## Before the interview
-Get familiar with the codebase! Make sure you have the necessary dependencies installed, and that you are able to run the tests. 
 
-## What you need to run it 
+Get familiar with the codebase! Make sure you have the necessary dependencies installed, and that you are able to run the tests.
+
+## What you need to run it
+
 - Install Ruby 2.x version
 - Install Bundler via `gem install bundler`
 - Install dependencies via `bundle install`
 
-
 ## Run Tests
 
 ```console
-$ rake spec 
+rake spec
 ```
 
 ## Run the Sample Application
@@ -34,24 +37,17 @@ $ rake spec
 To understand how this library would be used you can check the `main.rb` file. If you want to see the results, run:
 
 ```console
-$ rake
+rake
 ```
 
 ## Existing Business Rules
+
 Application code currently has following rules:
-* Calculates total price and total loyalty points earned by the customer.
-* Products with product code starting with DIS_10 have a 10% discount applied.
-* Products with product code starting with DIS_15 have a 15% discount applied.
-* Loyalty points are earned more when the product is not under any offer.
-    - Customer earns 1 point on every $5 purchase.
-    - Customer earns 1 point on every $10 spent on a product with 10% discount.
-    - Customer earns 1 point on every $15 spent on a product with 15% discount.
 
-
-
-## Extension tasks
-1. Implement a discount of 20%, the products eligible for which will be identified by the product code starting with "DIS_20". On purchase of each such product, the customer earns, 1 loyalty point for every $20 spent
-
-2. Implement an offer on group of products, eg. "Buy 2 get 1 free" on specific products identified by product code starting with "BULK_BUY_2_GET_1"
-
-3. Implement a discount of 5% which is applicable on total purchase above $500
+- Calculates total price and total loyalty points earned by the customer.
+- Products with product code starting with DIS_10 have a 10% discount applied.
+- Products with product code starting with DIS_15 have a 15% discount applied.
+- Loyalty points are earned more when the product is not under any offer.
+  - Customer earns 1 point on every \$5 purchase.
+  - Customer earns 1 point on every \$10 spent on a product with 10% discount.
+  - Customer earns 1 point on every \$15 spent on a product with 15% discount.
