@@ -30,22 +30,44 @@ class ShoppingCart
     total_price = 0
 
     loyalty_points_earned = 0
+    # loyalty_points_earned = @products.sum{ loyalty_points_for(_1)}
     @products.each do |product|
-      discount = 0
-      if product.product_code.start_with?("DIS_10")
-        discount = product.price * 0.1
-        loyalty_points_earned += (product.price / 10)
-      elsif product.product_code.start_with?("DIS_15")
-        discount = (product.price * 0.15)
-        loyalty_points_earned += (product.price / 15)
-      else
-        loyalty_points_earned += (product.price / 5);
-      end
-
-      total_price += product.price - discount;
+      loyalty_points_earned += loyalty_points_for(product)
+      total_price += product.price - discount_for(product)
     end
 
     return Order.new total_price, loyalty_points_earned
+  end
+
+  def loyalty_points_for(product)
+    product.price / percentage_for(product)
+  end
+
+  def discount_for(product)
+    product.price * percentage_discount_for(product)
+  end
+
+  def percentage_discount_for(product)
+    discount_rate = discount_rate_for(product)
+    if discount_rate == nil
+      0
+    else
+      discount_rate.fdiv(100)
+    end
+  end
+
+  def percentage_for(product)
+    discount_rate = discount_rate_for(product)
+    if discount_rate == nil
+      5
+    else
+      discount_rate
+    end
+  end
+
+  def discount_rate_for(product)
+    matches = product.product_code.match(/^DIS_(\d+)/)
+    matches && matches[1].to_i
   end
 
   def to_s
